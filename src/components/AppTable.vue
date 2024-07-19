@@ -10,6 +10,7 @@
             :loading="loading"
             :options.sync="options"
             @click:row="onDetailsClick"
+            mobile-breakpoint="0"
           >
             <template v-slot:top>
               <v-toolbar flat>
