@@ -27,7 +27,7 @@
   import { User } from "@/dto/User";
   
   @Component
-  export default class App extends Vue {
+  export default class Profile extends Vue {
     user: User | null = null;
     dialog: boolean = false;
   
@@ -49,9 +49,9 @@
   </script>
   
   <style>
-  .iconName {
-    color: white;
-    cursor: pointer;
-  }
+    .iconName {
+      color: white;
+      cursor: pointer;
+    }
   </style>
   
