@@ -15,7 +15,7 @@
                   <v-list-item-content>
                     <v-list-item-title>Created At</v-list-item-title>
                     <v-list-item-subtitle>{{
-                      new Date(entity.createdAt).toISOString().split('T')[0]
+                      new Date(entity.createdAt).toISOString().split("T")[0]
                     }}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -25,7 +25,7 @@
                   <v-list-item-content>
                     <v-list-item-title>Updated At</v-list-item-title>
                     <v-list-item-subtitle>{{
-                      new Date(entity.updatedAt).toISOString().split('T')[0]
+                      new Date(entity.updatedAt).toISOString().split("T")[0]
                     }}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -87,4 +87,3 @@ export default class ClientsDetailsView extends Vue {
   }
 }
 </script>
-
