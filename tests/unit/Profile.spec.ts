@@ -12,7 +12,7 @@ const mockUser = {
   locale: 'en-US',
 };
 
-describe('App.vue', () => {
+describe('Profile.vue', () => {
   let wrapper: any;
 
   beforeEach(async () => {
