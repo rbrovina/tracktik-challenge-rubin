@@ -100,11 +100,8 @@ import { Prop, Watch } from "vue-property-decorator";
 
 import axios from "axios";
 import { ApiData } from "@/dto/ApiData";
-
-interface DataGridOptions {
-  page: number;
-  itemsPerPage: number;
-}
+import { DataGridOptions } from "@/dto/DataGridOptions";
+import moment from "moment";
 
 @Component
 export default class AppTable extends Vue {
@@ -142,10 +139,10 @@ export default class AppTable extends Vue {
         return {
           ...entity,
           createdAt: entity.createdAt
-            ? new Date(entity.createdAt).toISOString().split("T")[0]
+            ? moment(entity.createdAt).format("YYYY-MM-DD")
             : null,
           updatedAt: entity.updatedAt
-            ? new Date(entity.updatedAt).toISOString().split("T")[0]
+            ? moment(entity.updatedAt).format("YYYY-MM-DD")
             : null,
         };
       });

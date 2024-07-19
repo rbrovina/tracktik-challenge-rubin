@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <v-container v-if="entity">
     <v-row justify="center">
       <v-col cols="12" md="8">
-        <v-card v-if="entity" class="mx-auto">
+        <v-card class="mx-auto">
           <v-img :src="entity.logo" aspect-ratio="2"></v-img>
           <v-card-title>
             {{ entity.givenName }}
@@ -15,7 +15,7 @@
                   <v-list-item-content>
                     <v-list-item-title>Created At</v-list-item-title>
                     <v-list-item-subtitle>{{
-                      new Date(entity.createdAt).toISOString().split("T")[0]
+                      formatDate(entity.createdAt)
                     }}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -25,7 +25,7 @@
                   <v-list-item-content>
                     <v-list-item-title>Updated At</v-list-item-title>
                     <v-list-item-subtitle>{{
-                      new Date(entity.updatedAt).toISOString().split("T")[0]
+                      formatDate(entity.updatedAt)
                     }}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -49,6 +49,24 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar
+      v-model="successSnackbar"
+      bottom
+      right
+      timeout="1500"
+      color="green"
+    >
+      Client {{ entity.givenName }} loaded successfully.
+    </v-snackbar>
+    <v-snackbar
+      v-model="failureSnackbar"
+      bottom
+      right
+      timeout="1500"
+      color="red"
+    >
+      Error loading client data. Please try again later.
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -56,19 +74,14 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import axios from "axios";
-
-interface Entity {
-  id: string;
-  givenName: string;
-  logo: string;
-  createdAt: string;
-  updatedAt: string;
-  tags: string[];
-}
+import { ClientDetails } from "@/dto/ClientDetails";
+import moment from "moment";
 
 @Component
 export default class ClientsDetailsView extends Vue {
-  entity: Entity | null = null;
+  entity: ClientDetails | null = null;
+  successSnackbar = false;
+  failureSnackbar = false;
 
   created() {
     this.fetchData();
@@ -81,9 +94,15 @@ export default class ClientsDetailsView extends Vue {
         `https://tracktik-challenge.staffr.com/clients/${id}`
       );
       this.entity = response.data;
+      this.successSnackbar = true;
     } catch (error) {
       console.error("Error fetching data:", error);
+      this.failureSnackbar = true;
     }
+  }
+
+  formatDate(date: string): string {
+    return date ? moment(date).format("YYYY-MM-DD") : "";
   }
 }
 </script>

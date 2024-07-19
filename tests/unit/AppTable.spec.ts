@@ -14,7 +14,8 @@ const mockData = [
 const headers = [{ text: "Name", value: "name" }];
 
 describe("AppTable.vue", () => {
-  let wrapper: any;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  let wrapper: any; // TODO: Find a way to remove the eslint-disable for this warning
 
   beforeEach(async () => {
     (axios.get as jest.Mock).mockResolvedValue({
