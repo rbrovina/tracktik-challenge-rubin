@@ -13,7 +13,7 @@
           <p><strong>Locale:</strong> {{ user.locale }}</p>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" text @click="dialog = false">Close</v-btn>
+          <v-btn color="primary" text @click="closeDialog" id="closeButton">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -44,6 +44,10 @@ export default class Profile extends Vue {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+  }
+
+  closeDialog() {
+    this.dialog = false;
   }
 }
 </script>
