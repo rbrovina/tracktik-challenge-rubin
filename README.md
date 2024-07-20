@@ -35,7 +35,8 @@ These views are all located under the `views` folder.
 - **Responsive UI**: The user interface is responsive on all screen sizes, including mobile.
 - **Different UI on Details Pages**: The details pages for clients and sites have distinct user interfaces.
 - **Loading Indicator**: A loading indicator is displayed on tables while data is being fetched.
-
+- **Theme**: A switch on the header of the application is displayed to switch the themes of the app.
+- **Notifications**: Toast notifications are displayed when the details page are rendered. Based on the API response Success/Failure notifications are fires.
 
 
 ## Routing
@@ -49,6 +50,8 @@ These views are all located under the `views` folder.
 The `dto` folder contains the following TypeScript files that handle the interfaces for each attribute:
 - **ApiData**
 - **Client**
+- **ClientDetails**
+- **DataGridOptions**
 - **Site**
 - **SiteDetails**
 - **User**
