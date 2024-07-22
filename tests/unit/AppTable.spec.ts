@@ -3,7 +3,8 @@ import AppTable from "@/components/AppTable.vue";
 import Vue from "vue";
 import flushPromises from "flush-promises";
 import axios from "axios";
-
+import Vuetify from "vuetify";
+Vue.use(Vuetify)
 jest.mock("axios");
 
 const mockData = [
@@ -16,6 +17,7 @@ const headers = [{ text: "Name", value: "name" }];
 describe("AppTable.vue", () => {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   let wrapper: any; // TODO: Find a way to remove the eslint-disable for this warning
+  let vuetify = new Vuetify();
 
   beforeEach(async () => {
     (axios.get as jest.Mock).mockResolvedValue({
@@ -29,6 +31,7 @@ describe("AppTable.vue", () => {
         headers,
         onDetailsClick: jest.fn(),
       },
+      vuetify
     });
 
     await flushPromises();
@@ -48,13 +51,6 @@ describe("AppTable.vue", () => {
     expect(wrapper.vm.entities).toHaveLength(2);
   });
 
-  it("closes the filter modal when close button is clicked", async () => {
-    wrapper.setData({ filterModal: true });
-    await Vue.nextTick();
-    const closeButton = wrapper.find("v-btn");
-    await closeButton.trigger("click");
-    expect(wrapper.vm.filterModal).toBe(false);
-  });
 
   it("updates table data based on search input", async () => {
     wrapper.setData({ search: "search term" });

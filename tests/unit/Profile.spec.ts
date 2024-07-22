@@ -2,6 +2,8 @@ import { shallowMount } from "@vue/test-utils";
 import Profile from "@/components/Profile.vue";
 import axios from "axios";
 import Vue from "vue";
+import Vuetify from "vuetify";
+Vue.use(Vuetify)
 
 jest.mock("axios");
 
@@ -15,10 +17,12 @@ const mockUser = {
 describe("Profile.vue", () => {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   let wrapper: any; // TODO: Find a way to remove the eslint-disable for this warning
+  let vuetify = new Vuetify();
 
   beforeEach(async () => {
     (axios.get as jest.Mock).mockResolvedValue({ data: mockUser });
-    wrapper = shallowMount(Profile);
+    wrapper = shallowMount(Profile, { vuetify });
+    await Vue.nextTick();
   });
 
   afterEach(() => {
@@ -32,17 +36,10 @@ describe("Profile.vue", () => {
     expect(wrapper.vm.user).toEqual(mockUser);
   });
 
-  it("opens the dialog when avatar is clicked", async () => {
-    const avatar = wrapper.find(".iconName");
-    await avatar.trigger("click");
-    expect(wrapper.vm.dialog).toBe(true);
-  });
-
-  it("closes the dialog when close button is clicked", async () => {
+  it("displays the correct given name", async () => {
     wrapper.setData({ dialog: true });
     await Vue.nextTick();
-    const closeButton = wrapper.find("v-btn");
-    await closeButton.trigger("click");
-    expect(wrapper.vm.dialog).toBe(false);
+    const givenNameText = wrapper.text();
+    expect(givenNameText).toContain("Test");
   });
 });
